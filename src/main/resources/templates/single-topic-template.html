@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title th:text="${topic.name}">Document</title>
-
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="stylesheet" href="/css/layout.css"/>
+    <title>survivingCodingBootCamp.com</title>
+    <link rel="icon" href="/assets/icon.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/layout.css">
 </head>
 
 <body>
@@ -29,6 +32,17 @@
                     <a th:text="${post.title}" th:href="'/posts/'+${post.id}" href="#"
                        class="posts__nav-link"></a>
                 </div>
+                <br>
+                <form  th:action="'/topics/'+${topic.id}+'/add-post'" method="POST">
+                    <label for="post">Title:</label><br>
+                    <input type="text" id="post" name="title" value=""><br>
+                    <label for="content">Content:</label><br>
+                    <input class="contentBox" type="text" id="content" name="content" value=""><br>
+                    <label for="author">Author:</label><br>
+                    <input type="text" id="author" name="author" value=""><br>
+                    <button type="submit"> Add Post</button>
+
+                </form>
             </nav>
         </section>
     </main>
