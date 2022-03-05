@@ -35,11 +35,17 @@ public class HashtagController{
     @PostMapping("/add-hashtags/{id}")
     public String addHashtag(@PathVariable Long id,@RequestParam String hashtagName) {
         Post post = postRepo.findById(id).get();
-        Hashtag hashtag = new Hashtag(hashtagName);
-        hashtagRepository.save(hashtag);
-        post.addHashtag(hashtag);
+        Hashtag hashtagToAdd;
+        Optional<Hashtag> hashtagOptional = hashtagRepository.findByHashtagNameIgnoreCase(hashtagName);
+        if (hashtagOptional.isEmpty()){
+            Hashtag hashtag1 = new Hashtag(hashtagName);
+            hashtagRepository.save(hashtag1);
+            hashtagToAdd = hashtag1;}
+        else {
+            hashtagToAdd = hashtagOptional.get();
+        }
+        post.addHashtag(hashtagToAdd);
         postRepo.save(post);
-
         return "redirect:/posts/"+id;
     }
 }
