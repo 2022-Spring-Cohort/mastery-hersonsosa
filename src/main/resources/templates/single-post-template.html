@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html
+        lang="en"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${post.title}">Document</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>survivingCodingBootCamp.com</title>
     <link rel="icon" href="/assets/icon.png">
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/layout.css">
 </head>
 
 <body>
@@ -24,13 +27,30 @@
                 <h3 class="post__topic-title main-content__topic-title"><a th:text="${post.topic.name}" th:href="'/topics/'+${post.topic.id}" class="main-content__topic-link post__topic-link">Topic</a>
                     </h3>
                 <h2 th:text="${post.title}" class="post__title main-content__topic-title">Post Title</h2>
+                <h2 th:text="${post.author}" class="post__author main-content__author">Post Author</h2>
                 <p th:text="${post.content}" class="post__content">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque blanditiis, aut quae fuga id quis ut. 
                     Eligendi necessitatibus blanditiis officia, odio deleniti natus molestiae fugiat ex quod vel aliquam illum.
                 </p>
+                <h3>Hashtags:</h3>
+                <div>
+                    <ul>
+                        <li th:each="hashtag:${post.hashtags}" class="hashtag">
+                            <a th:text=" '#' + ${hashtag.hashtagName}" th:href="'/hashtags/'+${hashtag.id}"></a>
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                <br>
+                <div class="add-hashtag">
+                    <form th:action="'/add-hashtags/'+ ${post.id}" method="POST">
+                        <label for="hashtag">Enter Hashtag:</label><br>
+                        <input type="text" id="hashtag" name="hashtagName"><br><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
             </section>
         </main>
     </div>
-
 </body>
 
 </html>

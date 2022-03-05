@@ -24,26 +24,14 @@
     </header>
     <main class="main-content">
         <section class="main-content__topic topic">
-            <h2 th:text="${topic.name}" class="topic__title main-content__title">
-                Topic
-            </h2>
-            <nav class="main-content__nav posts__nav">
-                <div th:each="post: ${topic.posts}">
+            <div class="post-list">
+                <h2 th:text="'#'+${hashtag.hashtagName}">Hashtag Title</h2>
+                <p> </p>
+                <div th:each="post: ${post}">
                     <a th:text="${post.title}" th:href="'/posts/'+${post.id}" href="#"
                        class="posts__nav-link"></a>
                 </div>
-                <br>
-                <form  th:action="'/topics/'+${topic.id}+'/add-post'" method="POST">
-                    <label for="post">Title:</label><br>
-                    <input type="text" id="post" name="title" value=""><br>
-                    <label for="content">Content:</label><br>
-                    <input class="contentBox" type="text" id="content" name="content" value=""><br>
-                    <label for="author">Author:</label><br>
-                    <input type="text" id="author" name="author" value=""><br>
-                    <button type="submit"> Submit Post</button>
-
-                </form>
-            </nav>
+            </div>
         </section>
     </main>
 </div>

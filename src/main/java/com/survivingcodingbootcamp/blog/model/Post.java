@@ -1,6 +1,8 @@
 package com.survivingcodingbootcamp.blog.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collection;
 
 @Entity
 public class Post {
@@ -8,18 +10,22 @@ public class Post {
     @GeneratedValue
     private Long id;
     private String title;
+    private String author;
     @ManyToOne
     private Topic topic;
+    @ManyToMany
+    private Collection<Hashtag> hashtags;
     @Lob
     private String content;
 
-    protected Post() {
-    }
+    protected Post() {}
 
-    public Post(String title, Topic topic, String content) {
+    public Post(String title, Topic topic,String author, String content, Hashtag...hashtags) {
         this.title = title;
         this.topic = topic;
+        this.author = author;
         this.content = content;
+        this.hashtags = Arrays.asList(hashtags);
     }
 
     public Long getId() {
@@ -34,8 +40,16 @@ public class Post {
         return topic;
     }
 
+    public String getAuthor() {return author;}
+
     public String getContent() {
         return content;
+    }
+
+    public Collection<Hashtag> getHashtags() {return hashtags;}
+
+    public void addHashtag(Hashtag hashtag){
+        hashtags.add(hashtag);
     }
 
     @Override
@@ -43,9 +57,11 @@ public class Post {
         return "Post{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", topic=" + topic +
+                ", topic=" + topic + '\'' +
+                ", author=" + author + '\'' +
                 ", content='" + content + '\'' +
-                '}';
+                ", hashtags=" + hashtags +'\'' +
+                "}";
     }
 
     @Override
@@ -58,6 +74,7 @@ public class Post {
         if (id != null ? !id.equals(post.id) : post.id != null) return false;
         if (title != null ? !title.equals(post.title) : post.title != null) return false;
         if (topic != null ? !topic.equals(post.topic) : post.topic != null) return false;
+        if (author != null ? !author.equals(post.author) : post.author != null) return false;
         return content != null ? content.equals(post.content) : post.content == null;
     }
 
@@ -66,6 +83,7 @@ public class Post {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (topic != null ? topic.hashCode() : 0);
+        result = 31 * result + (author !=null ? author.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
