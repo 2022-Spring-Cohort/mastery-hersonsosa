@@ -31,6 +31,13 @@
                    class="topics__nav-link"></a>
             </nav>
         </section>
+        <div class="add-topic">
+            <form th:action="'/topics/add-topic/'" method="POST">
+                <label>Add Topic:</label><br>
+                <input type="text" name="name"><br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
     </main>
     </div>
 </body>

@@ -33,5 +33,10 @@ public class TopicController {
 
         return "redirect:/topics/" + id;
     }
-
+    @PostMapping("/add-topic")
+    public String addTopic(String name) {
+        Topic topic = new Topic(name);
+        topicRepo.save(topic);
+        return "redirect:/";
+    }
 }
